@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+
+function add (x,y) { return x + y }
+function Curry(fn, args) {
+    console.log(fn.length)
+    var len = fn.length ;
+    var args = args || [];
+    return function() {
+        let newArgs = [].slice.call(arguments)
+        let allArgs = [...newArgs,...args]
+        if(allArgs.length < len) {
+            return Curry.call(this, fn, allArgs)
+        } else {
+            return fn.apply(this,allArgs)
+        }
+    }
+}
+let curryAdd = Curry(add)
+// curryAdd(1)(2) == add(1,2)
+</script>
+</html>

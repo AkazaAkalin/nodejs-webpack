@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+
+function Person(name) {
+    this.name = name
+    this.skill = ['talk', 'run', 'eat']
+}
+Person.prototype = {
+    constructor: Person,
+    head: 1,
+    hands: 2, 
+    canThink: true
+}
+var person1 = new Person('Aody')
+var person2 = new Person('Jimmy')
+// person1.__proto__.canThink = false
+// console.log(person1.__proto__, person2)
+function Student(name, code) {
+    this.code = code
+    Person.call(this, name)
+}
+Student.prototype = {
+    ...Person.prototype,
+    study: function() {
+        console.log('i study everyday')
+    }
+}
+Student.prototype.constructor = Student
+var student1 = new Student('Lyric',20201111)
+
+function Extend(fun) {
+    function fn() {
+
+    }
+    fn.prototype = fun
+    return new fn()
+}
+function inhert (child, parent) {
+
+    let prototype = Extend(parent.prototype)
+    // let prototype = parent.prototype
+    prototype.constructor = child
+    prototype.method = function(word) {
+        console.log(word)
+    }
+    child.prototype = prototype
+    return child
+}
+function Coder(name, code) {
+    this.code = code
+    Person.call(this, name)
+}
+inhert(Coder, Person)
+var coder1 = new Coder('Ha', 123321)
+var coder2 = new Coder('Java', 20202020)
+coder1.skill.push('program')
+
+
+class Humen {
+    constructor() {
+        this.eyes = 2
+        this.legs = 2
+        this.skill = ['run', 'eat']
+    }
+    say(word) {
+        console.log(word, this.skill)
+    }
+}
+class solder extends Humen {
+    constructor() {
+        super()
+        this.haveGun = true
+        this.attack = 100
+    }
+    attacking() {
+        console.log('attack', this.attack, this.eyes)
+    }
+}
+let solder1 = new solder()
+function getUrlKey(strUrl, key) {
+    let url = strUrl || ''
+    url = url.slice(url.indexOf('?')+1)
+    if(url) {
+        let urlArr = url.split('&')
+        let obj = {}
+        urlArr.map(item => {
+            // console.log(item.split('=')[0])
+            obj[item.split('=')[0]] = item.split('=')[1]
+        })
+        if(obj[key]) {
+            return obj[key]
+        } else {
+            return 'no key'
+        }
+    } else {
+        return 'no url'
+    }
+}
+getUrlKey('12313?a=1&b=2','a')
+getUrlKey('https://www.baidu.com/s?ie=UTF-8&wd=findindex', 'ie')
+</script>
+</html>

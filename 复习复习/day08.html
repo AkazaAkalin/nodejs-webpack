@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    console.log('script start')
+    setTimeout(() => {
+        console.log('setTimeout 1');
+        Promise.resolve().then(() => {
+            console.log('promise1')
+        })
+    }, 0)
+
+    new Promise(resolve => {
+        console.log('promise2');
+        setTimeout(() => {
+            console.log('setTimeout2');
+            resolve();
+        }, 0)
+    })
+
+    Promise.resolve().then(() => {
+        console.log('promise3');
+        setTimeout(() => {
+            console.log('setTimeout 3')
+        }, 0)
+    }).then(() => console.log('promise4'))
+    console.log('script end');
+</script>
+
+</html>
