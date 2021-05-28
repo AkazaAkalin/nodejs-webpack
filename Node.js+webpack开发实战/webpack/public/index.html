@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+        链接状态： <span id='status'>连接中</span>
+    </p>
+    <div id='list' style='border: 1px solid #eee; height: 200px; overflow-y: auto;'></div>
+    <textarea name="" id="content" cols="30" rows="8" style='width: 100px; outline: 0; margin-top: 10px;' placeholder="请文明发言"></textarea>
+    <button id='btn' disabled>发送</button>
+</body>
+<script>
+    const ws = new WebSocket('ws://' + location.host)
+    // const ws = new WebSocket("ws://localhost:8080/")
+
+    // "ws://localhost:52330/"
+    const listEle = document.querySelector('#list')
+    const contentEle = document.querySelector('#content')
+    const btn = document.querySelector('#btn')
+    ws.onopen = function() {
+        document.querySelector('#status').innerHTML = '已连接'
+        btn.disabled = false
+    }
+    ws.onmessage = function(message) {
+        listEle.innerHTML = listEle.innerHTML + '</br>' + message.data
+    }
+    ws.onerror = function(e) {
+        console.log(e)
+    }
+    ws.onclose = function() {
+        document.querySelector('#status').innerHTML = '未连接'
+        btn.disabled = true
+    }
+    btn.addEventListener('click', function(){
+        if(contentEle.value.trim().length === 0) {
+            return
+        }
+        ws.send(contentEle.value.trim())
+        contentEle.value = ''
+    }, false)
+</script>
+</html>
