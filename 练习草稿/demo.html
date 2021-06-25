@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    /**
+     * 原型继承, 构造函数继承, 组合继承, 寄生继承
+     */
+    // function Person(name, age, sex) {
+    //     this.name = name
+    //     this.age = age
+    //     this.sex = sex
+    //     this.emotions = ['喜', '怒', '哀', '乐']
+    // }
+    // Person.prototype.say = function () {
+    //     console.log(`name:${this.name}, age:${this.age}, sex:${this.sex}`)
+    // }
+    // Person.prototype.friend = ['Bob', 'Joe', 'Autt']
+
+    // let person1 = new Person('aaa', 33, 'male')
+    // function Student(name, age, sex, number) {
+    //     this.number = number
+    //     Person.call(this, name, age, sex)
+    // }
+
+    // // Student.prototype = new Person()
+    // Student.prototype = Person.prototype
+    // Student.prototype.constructor = Student
+    // Student.prototype.study = function (skill) {
+    //     console.log(`I study ${skill}`)
+    // }
+
+    // let student1 = new Student('student1', 11, 'female', 0001)
+    // let student2 = new Student('student2', 10, 'unknown', 1234)
+    // student1.emotions.push('呆')
+    // student1.friend.push('Sasa')
+    // person1.say()
+    // student1.say()
+    // student1.study('math')
+    // console.log(student2.emotions)
+    // console.log(student2.friend) // 原型上的属性被污染
+
+
+    /**
+     * 寄生继承
+     */
+    // function extend(obj) {
+    //     var f = function() {}
+    //     f.prototype = Object.getPrototypeOf(obj)
+    //     return new f()
+    // }
+    // function Person(name, age, sex) {
+    //     this.name = name
+    //     this.age = age
+    //     this.sex = sex
+    // }
+    // function Student(number) {
+
+    // } 
+
+    // let str = '?hmsr=aladdin1e1&name=ooo&alive=false'
+    // let obj = {}
+    // str.slice(1).split('&').map((item) => {
+    //     obj[item.split('=')[0]] = item.split('=')[1]
+    // })
+    /**
+     * class 继承
+    */
+    // class Humen {
+    //     constructor(name, age) {
+    //         this.name = name
+    //         this.age = age
+    //     }
+    //     static head = 'humenHead' 
+    //     say() {
+    //         console.log(`my name is ${this.name}`)
+    //     }
+    // }
+
+    // class Female extends Humen{
+    //     constructor(name, age) {
+    //         super(name, age)
+    //         this.sex = 'female'
+    //     }
+    // }
+    // let h1 = new Humen('h1', 22)
+    // let f1 = new Female('f1', 11)
+
+
+    /**
+     *
+     * 拷贝函数， reduce写法
+     *
+    */
+    // function clone(object) {
+    //     let result = {}
+    //     for (const key in object) {
+    //         if (Object.hasOwnProperty.call(object, key)) {
+    //             const element = object[key];
+    //             if(typeof(element) == 'object') {
+    //                 result[key] = clone(element)
+    //             } else {
+    //                 result[key] = element
+    //             }
+    //         }
+    //     }
+    //     return result
+    // }
+    // let o1 = {
+    //     name: '123',
+    //     color: {
+    //         dark: 'black',
+    //         light: 'white'
+    //     }
+    // }
+    // let o2 = clone(o1)
+    // let deepCopyObj = obj => Object.entries(obj).reduce((total, [key, value])=> {
+    //     return typeof(value) == 'object'? {...total, [key]: deepCopyObj(value)} : {...total, [key]: value}
+    // }, {})
+    // let deepCopy = object => {
+    //     return  object.reduce((total, [key, value]) => {
+    //         return typeof(value)== 'object'? {...total, [key]: deepCopy(value)} : {...total, [key]: value}
+    //     }, {})
+    // }
+    // let o3 = deepCopyObj(o1)
+    // o1.name = '321'
+
+    /**
+     * new 
+     */
+    // let fun = function(name, age) {
+    //     this.name = name
+    //     this.age = age
+    // }
+    // fun.prototype.say = function() {
+    //     console.log(`my name is ${name}`)
+    // }
+    // function _NEW() {
+    //     let obj = {}
+    //     let constructorFn = Array.prototype.shift.call(arguments)
+    //     obj.__proto__ = constructorFn.prototype
+    //     constructorFn.apply(obj, arguments)
+    //     return obj
+    // }
+    // let a = _NEW(fun, 'guohua', 21)
+
+    // let strUrl = '?hmsr=aladdin1e1&name=ooo&alive=false'
+    // // let obj = {}
+    // strUrl.slice(1).split('&').reduce((total, item) => {
+    //     // console.log(total, item)
+    //     return {
+    //         ...total, 
+    //         [item.split('=')[0]]: item.split('=')[1]
+    //     }
+    // }, {})
+
+    // let throdebouce = {
+    //     throttle: function(fun, delay) {
+    //         let start = new Date().now
+    //         return function () {
+    //             let now = new Date().now
+    //             if (now - start > delay) {
+    //                 fun.apply(this, arguments)
+    //             }
+    //             start = now
+    //         }
+    //     },
+    //     debounce: function(fun, delay) {
+    //         let timer = null
+    //         return function () {
+    //             let context = this
+    //             if(!timer) {
+    //                 timer = setTimeout(() => {
+    //                     fun.apply(context, arguments)
+    //                 }, delay)
+    //                 clearTimeout(timer)
+    //             }
+    //         }
+    //     },
+    // };
+
+    // (function() {
+    //     function clone(object) {
+    //         let result
+    //         for (const key in object) {
+    //             if (Object.hasOwnProperty.call(object, key)) {
+    //                 const element = object[key];
+    //                 if (typeof (element) == 'object') {
+    //                     result[key] = clone(element)
+    //                 } else {
+    //                     result[key] = element
+    //                 }
+    //             }
+    //         }
+    //         return result
+    //     }
+    //     function deepCopy(obj) {
+    //         return Object.entries(obj).reduce((total, [key, value]) => {
+    //             return typeof (obj) == 'object' ? {
+    //                 ...total,
+    //                 [key]: deepCopy(value)
+    //             } : {
+    //                 ...total,
+    //                 [key]: value
+    //             }
+    //         })
+    //     }
+    //     let o1 = {
+    //         name: '123',
+    //         color: {
+    //             dark: 'black',
+    //             light: 'white'
+    //         }
+    //     }
+    //     let o3 = deepCopy(o1)
+    //     console.log(o3)
+    // })()
+
+
+    // function sum(a, b) {
+    //     return a + b
+    // }
+    // function currysum(fn, args) {
+    //     let oldArgs = args || []
+    //     let len = fn.length
+    //     return function() {
+    //         var newArgs = Array.prototype.slice.call(arguments)
+    //         var allArgs = [...oldArgs, ...newArgs]
+    //         if(len > allArgs.length) {
+    //             return currysum(fn, allArgs)
+    //         } else {
+    //             return fn.apply(this, allArgs)
+    //         }
+    //     }
+    // }
+
+    // let mycurrysum = currysum(sum)
+
+    // console.log(mycurrysum(1)(2))
+</script>

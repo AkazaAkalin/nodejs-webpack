@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        li {
+            float: left;
+            padding: 5px 20px;
+            color: #fff;
+            background: #333;
+            border: 1px solid #333333;
+            cursor: pointer;
+        }
+
+        li.active {
+            background: #fff;
+            color: #333;
+        }
+
+        div.wind {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 50px;
+            width: 300px;
+            height: 200px;
+            overflow-y: auto;
+            background: #fff;
+            border: 1px solid #ccc;
+        }
+
+        div.show {
+            display: block;
+        }
+        p{
+            cursor: pointer;
+            padding: 10px;
+            margin: 0;
+        }
+        P:hover{
+            background: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="list">
+        <li class="active">省份</l>
+            <li>市区</li>
+            <li>地区</li>
+    </ul>
+    <div id="content">
+        <div class="wind show">
+            item1
+        </div>
+        <div class="wind">
+            item2
+        </div>
+        <div class="wind">
+            item3
+        </div>
+    </div>
+
+</body>
+<script src="./city.js"></script>
+<script>
+    var oList = document.getElementById("list");
+    var oContent = document.getElementById("content");
+
+    var oListLi = oList.getElementsByTagName("li");
+    var oContentWind = oContent.getElementsByClassName("wind");
+    // 绑定事件
+    for (var i = 0; i < oListLi.length; i++) {
+        oListLi[i].idx = i;
+        oListLi[i].onclick = function () {
+            var idx = this.idx;
+            siblingsClass(this, "active");
+            siblingsClass(oContentWind[idx], "show");
+        }
+    }
+    // 显示切换
+    function siblingsClass(el, className) {
+        document.getElementsByClassName(className)[0].classList.remove(className);
+        el.classList.add(className);
+    }
+    // 填充数据
+
+    console.log(prov);
+
+    function setData(el, data, fn) {
+
+        el.innerHTML = "";
+        
+        for (var j = 0; j < data.length; j++) {
+
+            var p = document.createElement("p");
+
+            if(data[j].name){
+                p.innerText = data[j].name;
+                p.ads =  data[j].name;
+            }else{
+                p.innerText = data[j];
+                p.ads =  data[j];
+            }
+           
+            p.array = data[j];
+            p.ads = 
+
+            el.appendChild(p);
+
+            p.onclick = fn;
+        }
+    };
+    var province,city,area;
+    var addressC = [];
+    setData(oContentWind[0], prov, function () {
+        
+
+        var pArray = this.array;
+        province = this.ads.innerHTML;
+        // console.log(province);
+        siblingsClass(oListLi[1], "active");
+        siblingsClass(oContentWind[1], "show");
+
+        setData(oContentWind[1], pArray.city, function () {
+            siblingsClass(oListLi[2], "active");
+            siblingsClass(oContentWind[2], "show");
+            var cArray = this.array;
+            city = this.ads.innerHTML;
+
+            setData(oContentWind[2], cArray.districtAndCounty, function () {
+                var area = this.innerText;
+                console.log([province,city,area].join("-"))
+            })
+        })
+    });
+</script>
+
+</html>

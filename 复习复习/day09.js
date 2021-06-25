@@ -17,24 +17,6 @@
 // }
 // AjaxGet('./1.json').then(res => {console.log(res)})
 
-// jq Ajax
-// $.ajax({
-//     type: "GET",  //默认get
-//     url: "url",  //默认当前页
-//     data: "data",  //格式{key:value}
-//     dataType: "json",
-//     beforeSend: function () {}, //请求发送前回调,常用验证
-//     success: function (response) {  //请求成功回调
-        
-//     },
-//     error: function (e) {  //请求超时回调
-//         if(e.statusText == "timeout"){
-//             alert("请求超时")
-//         }
-//     },
-//     complete: function () {}, //无论请求是成功还是失败都会执行的回调，常用全局成员的释放，或者页面状态的重置
-// })
-
 // post
 // function AjaxPost(url) {
 //     return new Promise ((resolve, reject) => {
@@ -53,20 +35,40 @@
 //     })
 // }
 // AjaxPost('./1.json').then(res => {})
+// jq Ajax
+// $.ajax({
+//     type: "GET",  //默认get
+//     url: "url",  //默认当前页
+//     data: "data",  //格式{key:value}
+//     dataType: "json",
+//     beforeSend: function () {}, //请求发送前回调,常用验证
+//     success: function (response) {  //请求成功回调
+
+//     },
+//     error: function (e) {  //请求超时回调
+//         if(e.statusText == "timeout"){
+//             alert("请求超时")
+//         }
+//     },
+//     complete: function () {}, //无论请求是成功还是失败都会执行的回调，常用全局成员的释放，或者页面状态的重置
+// })
+
 
 
 // event 
 let event = {}
 
-event.on = function(type, fun) {
+event.on = function (type, fun) {
     this[type] = fun
 }
-event.emit = function(type, params) {
+event.emit = function (type, params) {
     if (this[type]) {
-        this[type].call(this,params)
-    } else { 
+        this[type].call(this, params)
+    } else {
         return 'this method is not exist'
     }
 }
-event.on('say', function(str){ console.log('say'+ str) })
+event.on('say', function (str) {
+    console.log('say' + str)
+})
 event.emit('say', 'emit')

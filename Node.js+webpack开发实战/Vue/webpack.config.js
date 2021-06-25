@@ -22,11 +22,19 @@ const config = {
             {
                 test: /\.js$/,
                 use: 'babel-loader'
+            }, 
+            {
+                test: /\.ts$/,
+                loader: 'ts-loader', 
+                exclude: /node_modules/,
+                options: {
+                    appendTsSuffixTo: [/\.vue$/]
+                }
             }
         ]
     },
     resolve: {
-        // extendsions: ['.js','.vue', '.json']
+        extensions: ['.ts', '.js','.vue', '.json']
     },
     plugins: [
         new HtmlWebpackPlugin({

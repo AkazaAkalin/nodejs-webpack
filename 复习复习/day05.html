@@ -1,118 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+
 </body>
 <script>
-//     function Foo(name) {
-//   this.name = name;
-// }
+    // function Foo(name) {
+    //   this.name = name;
+    // }
+    // Foo.prototype.myName = function () {
+    //   return this.name;
+    // }
+    // // 继承属性，通过借用构造函数调用
+    // function Bar(name, label) {
+    //   Foo.call(this, name);
+    //   this.label = label;
+    // }
+    // // 继承方法，创建备份
+    // Bar.prototype = Object.create(Foo.prototype);
+    // // 必须设置回正确的构造函数，要不然在会发生判断类型出错
+    // Bar.prototype.constructor = Bar;
+    //  // 必须在上一步之后
+    // Bar.prototype.myLabel = function () {
+    //   return this.label;
+    // }
+    // var a = new Bar("a", "obj a");
+    // a.myName(); // "a"
+    // a.myLabel(); // "obj a"
 
-// Foo.prototype.myName = function () {
-//   return this.name;
-// }
-
-// // 继承属性，通过借用构造函数调用
-// function Bar(name, label) {
-//   Foo.call(this, name);
-//   this.label = label;
-// }
-
-// // 继承方法，创建备份
-// Bar.prototype = Object.create(Foo.prototype);
-
-// // 必须设置回正确的构造函数，要不然在会发生判断类型出错
-// Bar.prototype.constructor = Bar;
-
-//  // 必须在上一步之后
-// Bar.prototype.myLabel = function () {
-//   return this.label;
-// }
-
-// var a = new Bar("a", "obj a");
-
-// a.myName(); // "a"
-// a.myLabel(); // "obj a"
-
-// let obj = {
-//     name: 'AAA',
-//     type: 'normal'
-// }
-// function Foo(id) {
-//     this.id = id
-//     console.log(this.type)
-// }
-// var foo = Foo.bind(obj)
-/******************************************/
-// let obj = {
-//     name: 'AAA',
-//     type: 'normal'
-// }
-// function Foo(id) {
-//     this.id = id
-//     console.log(this.type)
-// }
-// Foo.bind(obj)()
-// var Fo = new Foo('fo')
-/**********************************************/
-// var a = 'window'
-// function foo() {
-//     var a = 'foo'
-//     return () => {
-//         console.log(a)
-//     }
-// }
-// function fooo() {
-//     this.a = 'fooo'
-//     var self = this
-//     return function() {
-//         console.log(self.a)
-//     }
-// }
-/************************************************/
-class Person {
-    constructor(name, age) {
-        this.name = name
-        this.age = age
+    let obj = {
+        name: 'AAA',
+        type: 'normal',
     }
-    static selfFn = function() {
-        return name
+    function Foo(id) {
+        this.id = id
+        console.log(this.type, this)
     }
-    static head = 1
-    showName() {
-        console.log(this.name)
-    }
-}
-var p1 = new Person('g',25)
-class Coder extends Person {
-    constructor(name,age,codeId) {
-        super(name, age)
-        this.UserId = codeId        
-    }
-    showCodeId() {
-        super.showName()
-        console.log(this.UserId)
-    }
-}
-let coder1 = new Coder('g', 10, 20210309)
+    Foo.bind(obj)
+    var fo = new Foo('fo')
 
-function fatten(arr) {
-    let result = []
-    arr.map(item=> {
-        if(Array.isArray(item)) {
-            result = result.concat(fatten(item))
-        } else {
-            result.push(item)
+    /******************************************/
+    // let obj = {
+    //     name: 'AAA',
+    //     type: 'normal'
+    // }
+    // function Foo(id) {
+    //     this.id = id
+    //     console.log(this.type, this)
+    // }
+    // Foo.bind(obj)()
+    // var Fo = new Foo('fo')
+    /**********************************************/
+    // var a = 'window'
+    // function foo() {
+    //     var a = 'foo'
+    //     return () => {
+    //         console.log(a)
+    //     }
+    // }
+    // function fooo() {
+    //     this.a = 'fooo'
+    //     var self = this
+    //     return function() {
+    //         console.log(self.a)
+    //     }
+    // }
+    /************************************************/
+    class Person {
+        constructor(name, age) {
+            this.name = name
+            this.age = age
         }
-    })
-    return result
-}
-fatten([1,[1,2],[1,[2,3]],[1,[2,[3,4]]]])
-fatten([1,[1,2]])
+        static selfFn = function () {
+            return name
+        }
+        static head = 1
+        showName() {
+            console.log(this.name)
+        }
+    }
+    var p1 = new Person('g', 25)
+    class Coder extends Person {
+        constructor(name, age, codeId) {
+            super(name, age)
+            this.UserId = codeId
+        }
+        showCodeId() {
+            super.showName()
+            console.log(this.UserId)
+        }
+    }
+    let coder1 = new Coder('g', 10, 20210309)
+
+    // function fatten(arr) {
+    //     let result = []
+    //     arr.map(item => {
+    //         if (Array.isArray(item)) {
+    //             result = result.concat(fatten(item))
+    //         } else {
+    //             result.push(item)
+    //         }
+    //     })
+    //     return result
+    // }
+    fatten([1, [1, 2], [1, [2, 3]], [1, [2, [3, 4]]]])
+    fatten([1, [1, 2]])
+
+    function fatten(arr) {
+        return arr.reduce((total, item) => {
+            return Array.isArray(item)? total.concat(fatten(item)) : [...total, item]
+        }, [])
+    }
 </script>
+
 </html>

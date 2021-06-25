@@ -1,28 +1,9 @@
 # JS类型转换
-
-## typeof (NAN) === "number"
-## 如果有一个是字符串，相加就是进行拼凑
-## 相减 会转换成数字进行相减，如果结果不是numner就是NAN，
-
-### true false 会转换成1，0 进行相减
-
+typeof (NAN) === "number"
+## 变量之间的加减
+如果有一个是字符串，相加就是进行拼凑； 相减会转换成数字进行相减，如果结果不是numner就是NAN，true false 会转换成1，0 进行相减
 ## 数字与字符串会转换成数字进行比较
-
 # JS bind call apply 改变this指向
-
-###
-```
-function foo() {
-    console.log(this.a)
-}
-var obj = {
-    a: 1
-}
-foo.call(obj)
-
-
-```
-
 ```
 function bind(fn, obj) {
     return function() {
@@ -35,9 +16,7 @@ function foo(param) {
 }
 bind(foo, {a:123})(123)
 ```
-
 ```
-手寫call
 Function.prototype.mycall = function(obj, param) {
     context = obj || window
     const fnSymbol = Symbol('fn')
@@ -45,7 +24,6 @@ Function.prototype.mycall = function(obj, param) {
     delete context[fnSymbol]
 }
 ```
-
 ```
 apply
 Function.prototype.myapply = function(obj, arr) {
@@ -55,8 +33,8 @@ Function.prototype.myapply = function(obj, arr) {
     delete context[fnSymbol]
 }
 ```
-```
 bind
+```
 Function.prototype.mybind = function(obj, param) {
     context = obj || window
     const fnSymbol = Symbol('fn')

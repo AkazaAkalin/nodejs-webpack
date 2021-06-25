@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    // function bindThis(f, oTarget) {
+    //     let args = [].prototype.slice.call(arguments, 2)
+    //     return function() {
+    //         return f.apply(oTarget, Array.prototype.slice.call(arguments).concat(args));
+    //     }
+    // }
+    // var f = function () {
+    //     console.log(this.name)
+    // }
+    // var oTarget = {
+    //     name: 'guohua',
+    //     age: ''
+    // }
+    // bindThis(f, oTarget)
+    // f() // guohua
+
+
+    // const module = {
+    //     x: 123,
+    //     getX: function(a) {
+    //         let args = Array.prototype.slice.call(arguments)
+    //         console.log(args, a)
+    //         return this.x
+    //     }
+    // }
+    // let getXfuntion = module.getX
+    // // console.log(getXfuntion())
+    // let boundGetX = getXfuntion.bind(module, {a:'ggg'}, {name: 'guohua'})
+
+    // function LateBloomer() {
+    //     this.petalCount = Math.ceil(Math.random() * 12) + 1;
+    // }
+
+    // // 在 1 秒钟后声明 bloom
+    // LateBloomer.prototype.bloom = function () {
+    //     // window.setTimeout(this.declare.bind(this), 5000);
+    //     window.setTimeout(this.declare(), 5000);
+
+    // };
+
+    // LateBloomer.prototype.declare = function () {
+    //     console.log('I am a beautiful flower with ' +
+    //         this.petalCount + ' petals!');
+    // };
+    // function declare() {
+    //     console.log('123123')
+    // }
+    // var flower = new LateBloomer();
+    // flower.bloom(); // 一秒钟后, 调用 'declare' 方法
+
+
+    
+    function f(p1, p2) {
+        this.v = p1 + p2;
+    }
+
+    const g = f.bind(null, 'x');
+
+    const obj = new g('y');
+    console.log(obj instanceof f, obj instanceof g)
+    console.log(obj.v, obj.__proto__, Object.getPrototypeOf(obj));
+
+    const a = Object.create(null);
+    console.assert(a.__proto__ === undefined);
+    // 会创建一个原型为undefined的对象
+
+    const b = {};
+    console.assert(b.__proto__ === Object.prototype);
+</script>

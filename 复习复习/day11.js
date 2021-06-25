@@ -21,3 +21,8 @@ Function.prototype._bind = function() {
     let self = this
     let contenxt = [].shift.call(arguments)
 }
+
+// function range(first, end) {
+//     let res = []
+    
+// }

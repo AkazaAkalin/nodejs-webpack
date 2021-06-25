@@ -33,7 +33,15 @@ function deepCopy(obj) {
     }
     return res
 }
+
+let deepCopy = object => {
+    return  object.reduce((total, [key, value]) => {
+        return typeof(value)== 'object'? {...total, [key]: deepCopy(value)} : {...total, [key]: value}
+    }, {})
+}
 ```
+
+
 # 事件流
 ## 冒泡流和捕获流
 ### 冒泡由底层想上层 捕获由上层向下层

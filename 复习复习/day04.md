@@ -43,7 +43,7 @@ function extend(obj) {
     F.prototype = obj
     return new F()
 }
-// 返回一个以obj为原型的空函数
+// 返回一个以obj为原型的空对象
 var obj = {
     a: 'a',
     b: 'b'

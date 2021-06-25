@@ -1,19 +1,26 @@
 <template>
     <div class='msg' @click="handclick">{{msg}}</div>
 </template>
-<script>
-export default {
+<script lang = 'ts'>
+import Vue from 'vue'
+export default Vue.extend ({
     data() {
         return {
             msg: 'Hello World'
         }
     },
     methods: {
-        handclick: function () {
-            console.log('handclick', this)
+        handclick: async function () {
+            const data = await this.sum(1,3)
+            console.log(data)
+        },
+        sum(a: number, b: number) {
+            return new Promise((resolve, reject)=> {
+                resolve(a + b)
+            })
         }
     }
-}
+})
 </script>
 <style>
     .msg {

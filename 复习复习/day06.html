@@ -27,5 +27,29 @@ function Curry(fn, args) {
 }
 let curryAdd = Curry(add)
 // curryAdd(1)(2) == add(1,2)
+// function curry(fn, args) {
+//     let oldargs = args || []
+//     return function() {
+//         let newArgs = Array.prototype.slice.call(arguments)
+//         let allArgs = [...oldargs, ...newArgs]
+//         if(fn.length > allArgs.length) {
+//             return curry(fn, allArgs)
+//         } else {
+//             fn.apply(this, allArgs)
+//         }
+//     }
+// }
+
+// for(let macTack in macTackStack ){
+//     handle(macTack)
+//     for( let micTask in micTaskStack) {
+//         handle(micTask)
+//     }
+// }
+var name = 'outside'
+if(true) {
+    // console.log(name) // 报错
+    let name = 'inside';
+}
 </script>
 </html>
